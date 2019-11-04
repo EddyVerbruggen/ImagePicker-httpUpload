@@ -1,0 +1,29 @@
+.home-panel{
+    vertical-align: center; 
+    font-size: 20;
+    margin: 15;
+}
+
+.description-label{
+    margin-bottom: 15;
+}
+
+.text {
+    text-align: center;
+    font-size: 18px;
+}
+
+.plugin {
+    font-weight: 600;
+    font-size: 23px;
+}
+
+.nativescript-label {
+    font-size: 60px;
+    background-color: #3d5afe;
+    font-weight: 600;
+    color: white;
+    border-radius:20px/20px;
+    width: 230px;
+    height: 230px;
+}

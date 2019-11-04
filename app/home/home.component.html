@@ -1,0 +1,43 @@
+<ActionBar title="imagepicker + background-http" class="action-bar"></ActionBar>
+
+<GridLayout rows="*, auto">
+    <GridLayout *ngIf="!showWelcome" rows="auto auto auto, *">
+        <Progress [value]="(event | async).eventData ? (event | async).eventData.currentBytes : 0"
+            [maxValue]="(event | async).eventData ? (event | async).eventData.totalBytes : 0">
+        </Progress>
+
+        <Label row="1" *ngIf="((event | async).eventData && (event | async).eventData.currentBytes !== NaN)"
+            class="m-10 text" [text]="'Transferred: ' + (event | async).eventData.currentBytes / 1000 + ' KB'"></Label>
+
+        <Label row="2" class="m-10 text" text="Events"></Label>
+
+        <ListView row="3" [items]="eventLog | async">
+            <ng-template let-item="item">
+                <StackLayout class="t-12">
+                    <Label [text]="item.eventTitle" textWrap="true"></Label>
+                    <Label *ngIf="item.eventData && item.eventData.error"
+                        [text]="item.eventData ? 'Error: ' + item.eventData.error : ''"
+                        textWrap="true"></Label>
+                    <Label *ngIf="item.eventData && item.eventData.body"
+                        [text]="item.eventData ? 'Body: ' + item.eventData.body : ''"
+                        textWrap="true"></Label>
+                    <Label *ngIf="item.eventData && item.eventData.raw"
+                        [text]="item.eventData ? 'Raw: ' + item.eventData.raw : ''"
+                        textWrap="true"></Label>
+                </StackLayout>
+            </ng-template>
+        </ListView>
+    </GridLayout>
+
+    <StackLayout *ngIf="showWelcome" verticalAlignment="middle">
+        <Label class="m-10 nativescript-label text" text="{N}"></Label>
+        <Label class="m-10 text" *ngIf="showWelcome" text="This sample app shows how to pick an image with"
+            textWrap="true"></Label>
+        <Label class="m-10 text plugin" text="nativescript-imagepicker"></Label>
+        <Label class="m-10 text" *ngIf="showWelcome" text="and upload it using"
+            textWrap="true"></Label>
+        <Label class="m-10 text plugin" text="nativescript-background-http"></Label>
+    </StackLayout>
+    <Button class="m-b-10 m-t-10 t-20" row="1" text="Choose image to upload"
+        (tap)="onSelectImageTap($event)"></Button>
+</GridLayout>
